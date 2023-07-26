@@ -99,6 +99,11 @@ module Chewy
           if type_root.id
             type_root.compose_id(object)
           else
+            if object.class.name.to_s=='ContactJobChangeEvent'
+              concanated_string=object.contact_id+object.new_organization_id+object.old_organization_id+object.old_title+object.title
+              id = Digest::MD5.hexdigest(concanated_string)
+              return id
+            end
             id = object.id if object.respond_to?(:id)
             id ||= object[:id] || object['id'] if object.is_a?(Hash)
             id = id.to_s if defined?(BSON) && id.is_a?(BSON::ObjectId)
