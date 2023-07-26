@@ -100,7 +100,7 @@ module Chewy
             type_root.compose_id(object)
           else
             if object.class.name.to_s=='ContactJobChangeEvent'
-              concanated_string=object.contact_id+object.new_organization_id+object.old_organization_id+object.old_title+object.title
+              concanated_string=object.contact_id&.to_s+object.new_organization_id&.to_s+object.old_organization_id&.to_s+object.old_title&.to_s+object.title&.to_s
               id = Digest::MD5.hexdigest(concanated_string)
               return id
             end
